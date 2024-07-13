@@ -1,6 +1,9 @@
 const express = require("express");
+const dotnet = require("dotenv");
 const app = express();
-const PORT = 5000;
+
+dotnet.config();
+const PORT = process.env.PORT || 5173;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
