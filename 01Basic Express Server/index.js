@@ -13,6 +13,10 @@ app.get("/login", (req, res) => {
   res.send("Enter Your Details.");
 });
 
+app.get("/profile", (req, res) => {
+  res.send("Username is Rohit Verma");
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
