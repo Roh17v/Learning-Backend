@@ -1,9 +1,11 @@
 {
   "name": "Ecommerce platform Backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "A backend of a Ecommerce platform",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
