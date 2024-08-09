@@ -6,6 +6,12 @@ const app = express();
 //middleware
 app.use(express.json());
 
+//custom middleware function
+app.use(function (req, res, next) {
+  console.log("Authenticating...");
+  next();
+})
+
 const courses = [
   { id: 1, name: "course1" },
   { id: 2, name: "course2" },
