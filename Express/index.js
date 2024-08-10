@@ -5,14 +5,16 @@ const app = express();
 
 //middleware
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+console.log(process.env.NODE_ENV)
+console.log(app.get("env"));
 
 //custom middleware function
 app.use(function (req, res, next) {
   console.log("Authenticating...");
   next();
-})
+});
 
 const courses = [
   { id: 1, name: "course1" },
@@ -62,17 +64,18 @@ app.put("/api/courses/:id", (req, res) => {
   res.send(course);
 });
 
-app.delete('/api/courses/:id',(req, res) => {
-  const course = courses.find((course) => course.id === parseInt(req.params.id))
-  if(!course)
-  {
+app.delete("/api/courses/:id", (req, res) => {
+  const course = courses.find(
+    (course) => course.id === parseInt(req.params.id)
+  );
+  if (!course) {
     return res.status(404).send("Not Found");
   }
 
   const index = courses.indexOf(course);
-  courses.splice(index,1);
+  courses.splice(index, 1);
   res.send(course);
-})
+});
 
 function validateSchema(course) {
   const schema = Joi.object({
