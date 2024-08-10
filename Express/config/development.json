@@ -1,0 +1,8 @@
+{
+  "port": 5001,
+  "dbConfig": {
+    "host": "localhost-development",
+    "user": "root",
+    "password": "s1mpl3"
+  }
+}

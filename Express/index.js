@@ -1,6 +1,6 @@
 const express = require("express");
 const Joi = require("joi");
-
+const config = require('config')
 const app = express();
 
 //middleware
@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 console.log(process.env.NODE_ENV)
 console.log(app.get("env"));
+console.log(config.get('dbConfig.host'))
 
 //custom middleware function
 app.use(function (req, res, next) {
