@@ -1,21 +1,21 @@
 console.log("Before");
-getUser(1, (user) => {
-  console.log(user);
-  getRepos(user.name, (repos) => {
-    console.log('Repos: ',repos)
-  })
-});
+const user = getUser(2).then((user) => console.log(user));
+const repos = getRepos("Rohit").then((username) => console.log(username));
 console.log("After");
 
-function getUser(id, callback) {
-  setTimeout(() => {
-    console.log("Fetching users from the database");
-    callback({ id: id, gitHubUserName: "Rohit" });
-  }, 3000);
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Fetching users from the database");
+      resolve({ id: id, gitHubUserName: "Rohit" });
+    }, 3000);
+  });
 }
 
-function getRepos(username, callback) {
-  setTimeout(() => {
-    callback(["repo1", "repo2", "repo3"]);
-  }, 2000);
+function getRepos(username) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(["repo1", "repo2", "repo3"]);
+    }, 3000);
+  });
 }
