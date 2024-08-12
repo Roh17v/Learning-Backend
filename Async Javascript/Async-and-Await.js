@@ -1,11 +1,15 @@
 async function getData() {
-  console.log("Before");
-  const user = await getUser(1);
-  console.log("Between");
-  const repos = await getRepos(user);
-  console.log("After");
-  console.log(user);
-  console.log(repos);
+  try {
+    console.log("Before");
+    const user = await getUser(1);
+    console.log("Between");
+    const repos = await getRepos(user);
+    console.log(user);
+    console.log("After");
+    console.log(repos);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 getData();
