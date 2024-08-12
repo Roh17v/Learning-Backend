@@ -1,13 +1,18 @@
 console.log("Before");
-const user = getUser(2).then((user) => console.log(user));
-const repos = getRepos("Rohit").then((username) => console.log(username));
+getUser(1)
+  .then((user) => {
+    console.log(user);
+    return getRepos(user.username);
+  })
+  .then((repos) => {console.log(repos)})
+  .catch(err => console.log(err))
 console.log("After");
 
 function getUser(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("Fetching users from the database");
-      resolve({ id: id, gitHubUserName: "Rohit" });
+      console.log("Fetching users from the database...");
+      resolve({ id: id, username: "Rohit" });
     }, 3000);
   });
 }
@@ -15,6 +20,7 @@ function getUser(id) {
 function getRepos(username) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      console.log("Fetching all repos from GitHub API...");
       resolve(["repo1", "repo2", "repo3"]);
     }, 3000);
   });
