@@ -25,16 +25,23 @@ app.get("/hello", (req, res) => {
   res.send("Hello");
 });
 
-async function createUser() {
-  const course = new Course({
-    name: "Angular",
-    author: "Mosh Hemadani",
-    tags: ["Angular", "frontend"],
-    isPublished: true,
-  });
+// async function createUser() {
+//   const course = new Course({
+//     name: "Angular",
+//     author: "Mosh Hemadani",
+//     tags: ["Angular", "frontend"],
+//     isPublished: true,
+//   });
 
-  const result = await course.save();
-  console.log(result);
+//   const result = await course.save();
+//   console.log(result);
+// }
+
+// createUser();
+
+async function getUser() {
+  const courses = await Course.find({ name: "Angular" });
+  console.log(courses);
 }
 
-createUser();
+getUser();
