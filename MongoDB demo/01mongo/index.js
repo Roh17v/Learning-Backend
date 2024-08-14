@@ -61,6 +61,21 @@ function validateCourse(course) {
   return schema.validate(course);
 }
 
+async function updateCourse(id) {
+  const course = await Course.findById(id);
+  if (!course) return;
+
+  course.set({
+    name: "python for beginners",
+    tags: ["python", "machine learning"],
+  });
+
+  const result = await course.save();
+  console.log(result);
+}
+
+updateCourse("66bc7ceeab7dfedf040641a5");
+
 // async function createUser(course) {
 //   const courseData = new Course(course);
 
