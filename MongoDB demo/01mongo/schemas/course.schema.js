@@ -6,6 +6,13 @@ const courseSchema = new mongoose.Schema(
     author: { type: String, required: true },
     tags: { type: [String] },
     isPublished: { type: Boolean, required: true },
+    category: {type: String, enum: ['web', 'Mobile', 'DevOps']},
+    price: {
+      type: Number,
+      required: function () {
+        return this.isPublished;
+      },
+    },
   },
   { timestamps: true }
 );

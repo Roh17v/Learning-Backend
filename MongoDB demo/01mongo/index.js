@@ -61,30 +61,40 @@ function validateCourse(course) {
   return schema.validate(course);
 }
 
-async function updateCourse(id) {
-  const course = await Course.findById(id);
-  if (!course) return;
+// async function updateCourse(id) {
+//   const course = await Course.findById(id);
+//   if (!course) return;
 
-  course.set({
-    name: "python for beginners",
-    tags: ["python", "machine learning"],
-  });
+//   course.set({
+//     name: "python for beginners",
+//     tags: ["python", "machine learning"],
+//   });
 
-  const result = await course.save();
-  console.log(result);
-}
-
-updateCourse("66bc7ceeab7dfedf040641a5");
-
-// async function createUser(course) {
-//   const courseData = new Course(course);
-
-//   const result = await courseData.save();
+//   const result = await course.save();
 //   console.log(result);
-//   return result;
 // }
 
-// createUser();
+// updateCourse("66bc7ceeab7dfedf040641a5");
+
+async function createUser() {
+  try {
+    const courseData = new Course({
+      name: "a course ",
+      author: "Rohit Verma",
+      tags: ["dummy data"],
+      isPublished: true,
+      price: 20,
+    });
+    await courseData.validate();
+    const result = await courseData.save();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+createUser();
 
 // async function getUser() {
 //   const courses = await Course.find({ author: /^Kunal/i });
