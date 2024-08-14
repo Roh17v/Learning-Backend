@@ -40,7 +40,7 @@ app.get("/hello", (req, res) => {
 // createUser();
 
 async function getUser() {
-  const courses = await Course.find().or([{author: "Mosh"},{isPublished: true}]);
+  const courses = await Course.find({tags: {$in: ['frontend']}});
   console.log(courses);
 }
 
