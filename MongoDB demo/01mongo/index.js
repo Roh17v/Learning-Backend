@@ -40,7 +40,7 @@ app.get("/hello", (req, res) => {
 // createUser();
 
 async function getUser() {
-  const courses = await Course.find({tags: {$in: ['frontend']}});
+  const courses = await Course.find({ name: /.*backend.*/i });
   console.log(courses);
 }
 
