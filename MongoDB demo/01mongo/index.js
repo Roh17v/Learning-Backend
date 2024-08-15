@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import connectDB from "./src/db/index.js";
-import { Course } from "./schemas/course.schema.js";
+import { Course } from "./models/course.model.js";
 import Joi from "joi";
+import { Author } from "./models/author.model.js";
 
 const app = express();
 dotenv.config();
@@ -73,26 +74,47 @@ function validateCourse(course) {
 
 // updateCourse("66bc7ceeab7dfedf040641a5");
 
-// async function createUser() {
+// async function createAuthor(name, bio, website) {
 //   try {
-//     const courseData = new Course({
-//       name: "a course ",
-//       author: "Rohit Verma",
-//       tags: ["Dummy Data"],
-//       category: "hello",
-//       isPublished: true,
-//       price: 20,
+//     const author = new Author({
+//       name,
+//       bio,
+//       website,
 //     });
-//     await courseData.validate();
-//     const result = await courseData.save();
+//     await author.validate();
+//     const result = await author.save();
 //     console.log(result);
-//     return result;
 //   } catch (error) {
-//     console.log(error.message);
+//     console.log(error);
 //   }
 // }
 
-// createUser();
+// createAuthor(
+//   "mosh",
+//   "A great Teacher with over 20 years of experience",
+//   "www.codewithmosh.com"
+// );
+
+async function createCourse() {
+  try {
+    const courseData = new Course({
+      name: "Python for Beginners",
+      author: "66be140e0dde9e027d9a7abb",
+      tags: ["python","machine learning"],
+      category: "web",
+      isPublished: true,
+      price: 20,
+    });
+    await courseData.validate();
+    const result = await courseData.save();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+createCourse();
 
 // async function getUser() {
 //   const courses = await Course.find({ author: /^Kunal/i });

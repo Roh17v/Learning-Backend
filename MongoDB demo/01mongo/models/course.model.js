@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 const courseSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    author: { type: String, required: true },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+      required: true,
+    },
     tags: {
       type: Array,
       validate: {
