@@ -18,6 +18,7 @@ const courseSchema = new mongoose.Schema(
       type: String,
       enum: ["web", "Mobile", "DevOps"],
       required: true,
+      lowercase: true,
     },
     price: {
       type: Number,

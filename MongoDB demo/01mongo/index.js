@@ -30,24 +30,19 @@ app.get("/hello", (req, res) => {
   res.send("Hello");
 });
 
-app.post("/createcourse", (req, res) => {
+app.post("/createcourse", async (req, res) => {
   const { error } = validateCourse(req.body);
-  console.log(error);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const course = new Course(req.body);
-  const result = course
-    .save()
-    .then((result) => {
-      console.log(result);
-      return res.status(201).send(result);
-    })
-    .catch((error) => {
-      console.error("Error creating course:", error);
-      return res
-        .status(500)
-        .send("Failed to create course. Please try again later.");
-    });
+  try {
+    const course = new Course(req.body);
+    await course.validate();
+    const result = await course.save();
+    return res.status(201).send(result);
+  } catch (error) {
+    console.log("Failed to Create the Course: ", error);
+    res.status(500).res(error);
+  }
 });
 
 function validateCourse(course) {
@@ -55,6 +50,8 @@ function validateCourse(course) {
     name: Joi.string().min(3).required(),
     author: Joi.string().min(3).required(),
     tags: Joi.array(),
+    category: Joi.string().valid("web", "Mobile", "DevOps").required(),
+    price: Joi.number().required(),
     isPublished: Joi.boolean().required(),
   });
 
@@ -76,26 +73,26 @@ function validateCourse(course) {
 
 // updateCourse("66bc7ceeab7dfedf040641a5");
 
-async function createUser() {
-  try {
-    const courseData = new Course({
-      name: "a course ",
-      author: "Rohit Verma",
-      tags: [],
-      category: "web",
-      isPublished: true,
-      price: 20,
-    });
-    await courseData.validate();
-    const result = await courseData.save();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+// async function createUser() {
+//   try {
+//     const courseData = new Course({
+//       name: "a course ",
+//       author: "Rohit Verma",
+//       tags: ["Dummy Data"],
+//       category: "hello",
+//       isPublished: true,
+//       price: 20,
+//     });
+//     await courseData.validate();
+//     const result = await courseData.save();
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
 
-createUser();
+// createUser();
 
 // async function getUser() {
 //   const courses = await Course.find({ author: /^Kunal/i });
