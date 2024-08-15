@@ -22,7 +22,6 @@ connectDB()
     console.log("MONGO DB Connection Failed: ", error);
     process.exit(1);
   });
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -95,26 +94,34 @@ function validateCourse(course) {
 //   "www.codewithmosh.com"
 // );
 
-async function createCourse() {
-  try {
-    const courseData = new Course({
-      name: "Python for Beginners",
-      author: "66be140e0dde9e027d9a7abb",
-      tags: ["python","machine learning"],
-      category: "web",
-      isPublished: true,
-      price: 20,
-    });
-    await courseData.validate();
-    const result = await courseData.save();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.log(error.message);
-  }
+// async function createCourse() {
+//   try {
+//     const courseData = new Course({
+//       name: "Python for Beginners",
+//       author: "66be140e0dde9e027d9a7abb",
+//       tags: ["python","machine learning"],
+//       category: "web",
+//       isPublished: true,
+//       price: 20,
+//     });
+//     await courseData.validate();
+//     const result = await courseData.save();
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
+// createCourse();
+
+async function listCourse()
+{
+  const courses = await Course.find().populate('author','name -_id');
+  console.log(courses);
 }
 
-createCourse();
+listCourse();
 
 // async function getUser() {
 //   const courses = await Course.find({ author: /^Kunal/i });
