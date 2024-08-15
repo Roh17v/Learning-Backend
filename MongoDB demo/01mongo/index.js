@@ -81,7 +81,8 @@ async function createUser() {
     const courseData = new Course({
       name: "a course ",
       author: "Rohit Verma",
-      tags: ["dummy data"],
+      tags: [],
+      category: "web",
       isPublished: true,
       price: 20,
     });

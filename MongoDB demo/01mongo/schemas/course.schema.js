@@ -4,9 +4,21 @@ const courseSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     author: { type: String, required: true },
-    tags: { type: [String] },
+    tags: {
+      type: Array,
+      validate: {
+        validator: function (v) {
+          return v && v.length > 0;
+        },
+        message: "A Course Should Contain Atleat One Tag",
+      },
+    },
     isPublished: { type: Boolean, required: true },
-    category: {type: String, enum: ['web', 'Mobile', 'DevOps']},
+    category: {
+      type: String,
+      enum: ["web", "Mobile", "DevOps"],
+      required: true,
+    },
     price: {
       type: Number,
       required: function () {
