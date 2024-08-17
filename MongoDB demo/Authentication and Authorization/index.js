@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./src/db/index.js";
 import signupRouter from "./routes/sigup.js";
+import signInRouter from "./routes/signin.js";
 
 const app = express();
 dotenv.config();
@@ -11,6 +12,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/signup", signupRouter);
+app.use("/api/signin", signInRouter);
 
 connectDB()
   .then(() => {
