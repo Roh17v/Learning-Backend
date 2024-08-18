@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get('/api/data', auth, (req, res) => {
+app.get("/api/data", auth, (req, res) => {
+  console.log(req.user._id);
   res.send("Dummy Data.");
-})
+});

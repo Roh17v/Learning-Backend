@@ -41,7 +41,7 @@ app.post("/createcourse", async (req, res) => {
     return res.status(201).send(result);
   } catch (error) {
     console.log("Failed to Create the Course: ", error);
-    res.status(500).res(error);
+    res.status(500).send(error);
   }
 });
 
@@ -115,9 +115,8 @@ function validateCourse(course) {
 
 // createCourse();
 
-async function listCourse()
-{
-  const courses = await Course.find().populate('author','name -_id');
+async function listCourse() {
+  const courses = await Course.find().populate("author", "name -_id");
   console.log(courses);
 }
 
