@@ -5,6 +5,7 @@ import connectDB from "./src/db/index.js";
 import signupRouter from "./routes/sigup.js";
 import signInRouter from "./routes/signin.js";
 import auth from "./middleware/auth.js";
+import admin from "./middleware/admin.js";
 
 const app = express();
 dotenv.config();
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/api/data", auth, (req, res) => {
+app.get("/api/data", [auth, admin], (req, res) => {
   console.log(req.user._id);
   res.send("Dummy Data.");
 });
