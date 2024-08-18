@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./src/db/index.js";
 import signupRouter from "./routes/sigup.js";
 import signInRouter from "./routes/signin.js";
+import auth from "./middleware/auth.js";
 
 const app = express();
 dotenv.config();
@@ -28,3 +29,7 @@ connectDB()
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.get('/api/data', auth, (req, res) => {
+  res.send("Dummy Data.");
+})
