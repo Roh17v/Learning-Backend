@@ -19,7 +19,12 @@ signupRouter.post("/", async (req, res) => {
     newUser.password = await bcrypt.hash(newUser.password, salt);
     await newUser.validate();
     await newUser.save();
-    return res.status(201).send(_.pick(newUser, ["_id", "name", "email"]));
+
+    const token = newUser.generateAuthToken();
+
+    return res
+      .header("x-auth-token", token)
+      .send(_.pick(newUser, ["_id", "name", "email"]));
   } catch (error) {
     console.log("Failed to Register the User: ", error);
     return res.status(500).send("Failed to Register the User");

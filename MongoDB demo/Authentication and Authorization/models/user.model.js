@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Joi from "joi";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,11 @@ const userSchema = new mongoose.Schema({
     maxlength: 1024,
   },
 });
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
+  return token;
+};
 
 export function validateUser(user) {
   const schema = Joi.object({
